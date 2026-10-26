@@ -1,0 +1,8 @@
+# All three models, all seven benchmarks.
+_base_:
+  - base.yaml
+  - models/llama3_8b.yaml
+  - models/mistral_7b.yaml
+  - models/gemma2_9b.yaml
+model: llama3_8b
+benchmarks: [gsm8k, arc_challenge, math_algebra, strategyqa, boardgameqa, gpqa_diamond, cryptobench]

@@ -1,0 +1,4 @@
+# Distilled reasoning model on CryptoBench.
+_base_: [base.yaml, models/r1_distill_llama8b.yaml]
+model: r1_distill_llama8b
+benchmarks: [cryptobench]

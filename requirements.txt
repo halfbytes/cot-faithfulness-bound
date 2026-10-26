@@ -1,0 +1,12 @@
+torch==2.5.1
+transformers==4.46.3
+tokenizers==0.20.3
+sentencepiece==0.2.1
+protobuf==5.29.5
+peft==0.13.2
+accelerate==1.1.1
+safetensors==0.4.5
+huggingface-hub==0.36.2
+datasets==3.1.0
+numpy==2.4.4
+PyYAML==6.0.3

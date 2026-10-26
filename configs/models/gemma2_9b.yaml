@@ -1,0 +1,8 @@
+# Checkpoint pinned to a commit, with hidden size, vocabulary size and depth.
+models:
+  gemma2_9b:
+    name: google/gemma-2-9b
+    revision: 33c193028431c2fde6c6e51f29e6f17b60cbfac6
+    d: 3584
+    v: 256000
+    L: 42

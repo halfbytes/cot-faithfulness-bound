@@ -1,0 +1,8 @@
+# Checkpoint pinned to a commit, with hidden size, vocabulary size and depth.
+models:
+  mistral_7b:
+    name: mistralai/Mistral-7B-v0.3
+    revision: caa1feb0e54d415e2df31207e5f4e273e33509b1
+    d: 4096
+    v: 32768
+    L: 32

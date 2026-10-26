@@ -1,0 +1,8 @@
+# Checkpoint pinned to a commit, with hidden size, vocabulary size and depth.
+models:
+  r1_distill_llama8b:
+    name: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+    revision: 6a6f4aa4197940add57724a7707d069478df56b1
+    d: 4096
+    v: 128256
+    L: 32

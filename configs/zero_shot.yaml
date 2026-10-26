@@ -1,0 +1,6 @@
+# No in-context demonstrations.
+_base_: [base.yaml, models/llama3_8b.yaml]
+model: llama3_8b
+benchmarks: [gsm8k, cryptobench]
+prompting: {k_shot: 0}
+paths: {results: results_zero_shot, checkpoints: checkpoints}

@@ -1,0 +1,127 @@
+# Shared settings for all experiments.
+seed: 0
+device: auto
+dtype: bfloat16
+force_regenerate: false       # regenerate traces even when they already exist
+
+paths:
+  results: results
+  checkpoints: checkpoints
+
+prompting:
+  k_shot: 8
+  delimiter: "The answer is"
+  stop_strings: ["\nQ:"]
+
+generation:
+  max_new_tokens_default: 512
+  per_benchmark_T:            # generation cap per benchmark
+    gsm8k: 512
+    math_algebra: 512
+    arc_challenge: 384
+    strategyqa: 307
+    boardgameqa: 384
+    gpqa_diamond: 512
+    cryptobench: 512
+  h0_layer: -1                # hidden-state layer read at the last prompt position
+  limit: null
+
+entropy:
+  n_traces: 1000
+  mode: nll                   # 'nll' = surprisal of the emitted token; 'shannon' = next-token entropy
+  aggregation: pooled
+
+representations:
+  pca_variance: 0.95
+  pca_max_components: null
+  standardize: true
+  answer_source: model        # 'model' = generated answer; 'gold' = reference answer
+  h0_pca_fit: validation_positions   # 'validation_positions' = state at every generated validation position; 'validation_prompt_final' = validation prompt-final states
+
+mine:
+  n_pairs: 1000
+  sample_sizes: [250, 500, 750, 1000]
+  seeds: [0, 1, 2, 3, 4]
+  iterations: 5000
+  lr: 1.0e-4
+  ema_momentum: 0.99
+  hidden_dims: [512, 256, 128]
+  proj_dim: 128
+  batch_size: 128
+  eval_every: 100
+  convergence_window: [3000, 5000]
+  convergence_tol_frac: 0.011
+  min_category_pairs: 16
+
+infonce:
+  iterations: 5000
+  benchmarks: [gsm8k, boardgameqa, cryptobench]
+
+perturbation:
+  seeds: [0, 1, 2, 3, 4]
+  step_delimiter: sentence    # unit replaced when perturbing a trace: 'sentence' or 'line'
+  temperature: 1.0
+  max_step_tokens: 64
+  exclude_answer_step: true
+
+patching:
+  mechanism: kv_cache         # 'kv_cache' splices attention entries; 'token_prefix' substitutes tokens
+  n_examples: 100
+  steps: [2, 4, 8, 16, 32, 64, 128, 256, 512]
+  n_pairs: 100
+  iterations: 1000
+  seeds: [0, 1, 2]
+
+calibration:
+  n_pairs: 10000
+  dim: 247
+  target_mi_bits: [0.1, 1.0, 10.0, 100.0]
+  iterations: 5000
+  seeds: [0, 1, 2]
+
+complexity:
+  lz_method: lz78             # 'lz78' or 'zlib'
+  gpqa_expert_traces: 50
+
+ib:
+  betas: [0.0, 0.01, 0.1, 1.0, 10.0]
+  lora_r: 16
+  lora_alpha: 32
+  lora_dropout: 0.0
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+  epochs: 3
+  lr: 2.0e-5
+  batch_size: 16
+  micro_batch_size: 2
+  grad_clip: 1.0
+  gradient_checkpointing: true
+  weight_decay: 0.0
+  logsigma_init: -6.0         # initial bottleneck noise scale
+  kl_reduction: mean          # bottleneck KL in bits averaged over hidden dimensions ('mean') or summed over them ('sum')
+  prior: learnable
+  train_k_shot: 8
+  max_train_examples: null
+  max_seq_len: 8192
+  seed: 0
+  benchmarks: [gsm8k, cryptobench]
+
+scaling:
+  caps: [128, 256, 512, 1024, 2048]
+  pred_reference_cap: 512      # cap whose critic score gives the predicted gap of every cap
+sensitivity: {R_grid: [0.5, 0.8, 1.2, 1.6, 2.0]}
+
+data:
+  root: data_files
+  split_seed: 0
+  benchmarks:
+    boardgameqa: {subset: BoardgameQA-Main-depth2}
+    strategyqa: {carve_validation: false}   # true removes the 100 validation items from the evaluation split
+    cryptobench:
+      seed: 0
+      train_seed: 1
+      validation_seed: 2
+      n_train: 2000
+      n_validation: 100
+      sizes: {cipher: 200, modular: 200, hash: 100}
+      exemplar_seed: 12345
+      short_exemplars: true

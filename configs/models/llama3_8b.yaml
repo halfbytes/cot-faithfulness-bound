@@ -1,0 +1,8 @@
+# Checkpoint pinned to a commit, with hidden size, vocabulary size and depth.
+models:
+  llama3_8b:
+    name: meta-llama/Meta-Llama-3-8B
+    revision: 8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920
+    d: 4096
+    v: 128256
+    L: 32

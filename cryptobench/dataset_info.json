@@ -1,0 +1,16 @@
+{
+  "name": "CryptoBench",
+  "version": "1.0",
+  "license": "MIT",
+  "n_instances": 500,
+  "composition": {
+    "cipher": 200,
+    "modular": 200,
+    "hash": 100
+  },
+  "generator": "data/cryptobench.py::generate_cryptobench",
+  "seed": 0,
+  "sha256_uncompressed": "ca1ed776ddef7def82fcf0600f123551f87828d4f911fd3ec346722f0b60c011",
+  "regenerate": "python main.py make-cryptobench",
+  "verify": "python main.py verify-cryptobench"
+}
